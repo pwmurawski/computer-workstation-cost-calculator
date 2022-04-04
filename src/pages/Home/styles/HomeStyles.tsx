@@ -14,9 +14,11 @@ export const Wrapper = styled.div`
 `;
 
 export const SummaryContainer = styled.div`
-  display: flex;
   max-width: 350px;
   width: 100%;
-  height: fit-content;
   margin: 20px;
+
+  @media (max-width: 1195px) {
+    max-width: 450px;
+  }
 `;
