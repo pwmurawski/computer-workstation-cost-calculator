@@ -1,3 +1,5 @@
+import { FooterText } from "./styles/FooterStyles";
+
 export default function Footer() {
-  return <div>footer</div>;
+  return <FooterText>©2022</FooterText>;
 }
