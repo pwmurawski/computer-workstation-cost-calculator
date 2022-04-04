@@ -1,31 +1,25 @@
-import {
-  Container,
-  Body,
-  Header,
-  Info,
-  Text,
-  Value,
-} from "./styles/SummaryStyles";
+/* eslint-disable react/no-array-index-key */
+import { Container, Header } from "./styles/SummaryStyles";
+import Category from "./Category/Category";
+import { IListItemData } from "../../reducer";
 
 interface ISummaryProps {
-  numberItems: number;
-  totalAmount: number;
+  listItemData: IListItemData[];
+  categories: {
+    id: string;
+    name: string;
+    items: IListItemData[];
+  }[];
 }
 
-export default function Summary({ numberItems, totalAmount }: ISummaryProps) {
+export default function Summary({ listItemData, categories }: ISummaryProps) {
   return (
     <Container>
       <Header>Podsumowanie</Header>
-      <Body>
-        <Info>
-          <Text>Liczba przedmiotów</Text>
-          <Value>{numberItems}</Value>
-        </Info>
-        <Info>
-          <Text>Łączna kwota</Text>
-          <Value>{totalAmount} zł</Value>
-        </Info>
-      </Body>
+      {categories.map(({ id, name, items }) => (
+        <Category key={id} name={name} items={items} />
+      ))}
+      <Category name="Razem" items={listItemData} />
     </Container>
   );
 }
