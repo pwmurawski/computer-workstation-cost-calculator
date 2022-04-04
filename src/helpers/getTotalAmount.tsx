@@ -1,6 +1,4 @@
-import { IListItemData } from "../reducer";
-
-const getTotalAmount = (arr: IListItemData[]) => {
+const getTotalAmount = (arr: { price: string }[]) => {
   let totalAmount = 0;
   arr.forEach(({ price }) => {
     totalAmount += parseFloat(price);
