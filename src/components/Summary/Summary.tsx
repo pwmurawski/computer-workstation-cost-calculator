@@ -1,4 +1,3 @@
-/* eslint-disable react/no-array-index-key */
 import { Container, Header } from "./styles/SummaryStyles";
 import Category from "./Category/Category";
 import { IListItemData } from "../../reducer";

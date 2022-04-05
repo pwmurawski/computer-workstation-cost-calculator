@@ -8,7 +8,6 @@ const getIconCategory = (category: string) => {
   if (category === "peripherals") return peripherals;
   if (category === "software") return software;
   if (category === "another") return another;
-
   return undefined;
 };
 
