@@ -12,6 +12,16 @@ export const Container = styled.section`
   border: 1px solid #b8b8b8;
   background-color: white;
   overflow-y: auto;
+
+  ::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: lightgray;
+    border-radius: 20px;
+  }
+
   @media (max-width: 1195px) {
     position: static;
   }
