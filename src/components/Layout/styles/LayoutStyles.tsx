@@ -11,6 +11,7 @@ export const Header = styled.header`
   position: fixed;
   width: 100%;
   height: 100px;
+  z-index: 1;
 
   @media (max-width: 700px) {
     height: 160px;
@@ -19,7 +20,7 @@ export const Header = styled.header`
 
 export const Main = styled.main`
   margin-top: 100px;
-  min-height: 70vh;
+  min-height: 87vh;
   height: fit-content;
 
   @media (max-width: 700px) {
