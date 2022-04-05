@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { v4 as uuid } from "uuid";
-import { useState } from "react";
+import { ReactElement, useState } from "react";
 import {
   Form,
   Input,
   Select,
   SubmitBtn,
+  SelectContainer,
 } from "./styles/FormCreateListItemStyles";
-import { IListItemData } from "../../reducer";
+import { ICategory, IListItemData } from "../../reducer";
 
 const initialFormData = {
   id: uuid(),
@@ -24,17 +25,23 @@ interface IFormCreateListItemProps {
   submitHandler: (formData: IListItemData) => void;
   defaultValues?: IListItemData;
   submitBtnText?: string;
+  addCategory?: ReactElement;
+  categories?: ICategory[];
 }
 
 const defaultProps = {
   defaultValues: undefined,
+  addCategory: null,
   submitBtnText: "Dodaj",
+  categories: null,
 };
 
 export default function FormCreateListItem({
   submitHandler,
   defaultValues,
   submitBtnText,
+  addCategory,
+  categories,
 }: IFormCreateListItemProps) {
   const [formData, setFormData] = useState(defaultValues ?? initialFormData);
 
@@ -59,24 +66,32 @@ export default function FormCreateListItem({
         onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
         placeholder="opis"
       />
-      <Select
-        value={formData.category.value}
-        onChange={(e) =>
-          setFormData({
-            ...formData,
-            category: {
-              value: e.target.value,
-              name: e.target.selectedOptions[0].text,
-            },
-          })
-        }
-      >
-        <option>wybierz kategorie</option>
-        <option value="hardware">Podzespoły komputera</option>
-        <option value="peripherals">Urządzenia peryferyjne</option>
-        <option value="software">Oprogramowanie</option>
-        <option value="another">Inne</option>
-      </Select>
+      <SelectContainer>
+        <Select
+          value={formData.category.value}
+          onChange={(e) =>
+            setFormData({
+              ...formData,
+              category: {
+                value: e.target.value,
+                name: e.target.selectedOptions[0].text,
+              },
+            })
+          }
+        >
+          <option>Wybierz kategorie</option>
+          <option value="hardware">Podzespoły komputera</option>
+          <option value="peripherals">Urządzenia peryferyjne</option>
+          <option value="software">Oprogramowanie</option>
+          {categories?.map(({ name, value }) => (
+            <option key={uuid()} value={value}>
+              {name}
+            </option>
+          ))}
+          <option value="another">Inne</option>
+        </Select>
+        {addCategory}
+      </SelectContainer>
       <Input
         type="number"
         value={formData.price}

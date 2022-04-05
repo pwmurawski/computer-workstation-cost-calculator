@@ -15,6 +15,7 @@ import {
 import ListItemEditForm from "./ListItemEditForm/ListItemEditForm";
 import deleteImg from "../../../assets/delete.png";
 import { IListItemData } from "../../../reducer";
+import useIconCategory from "../../../hook/useIconCategory";
 
 interface IListItemProps {
   id: string;
@@ -39,6 +40,7 @@ export default function ListItem({
   editItemHandler,
 }: IListItemProps) {
   const [showListItemEditForm, setshowListItemEditForm] = useState(false);
+  const iconCategory = useIconCategory(category.value);
 
   const submitHandler = (formData: IListItemData) => {
     setshowListItemEditForm(false);
@@ -62,7 +64,7 @@ export default function ListItem({
         <Icon
           width="50px"
           height="50px"
-          src={getIconCategory(category.value)}
+          src={getIconCategory(category.value) ?? iconCategory}
         />
         <Container>
           <Name>{name}</Name>

@@ -3,6 +3,7 @@ import ReducerContext from "../../context/ReducerContext";
 import { IListItemData } from "../../reducer";
 import FormCreateListItem from "../FormCreateListItem/FormCreateListItem";
 import { Container, FormContainer } from "./styles/HeaderStyles";
+import AddCategory from "../AddCategory/AddCategory";
 
 export default function Header() {
   const reducerCon = useContext(ReducerContext);
@@ -14,7 +15,11 @@ export default function Header() {
   return (
     <Container>
       <FormContainer>
-        <FormCreateListItem submitHandler={submitHandler} />
+        <FormCreateListItem
+          categories={reducerCon?.state.categories}
+          addCategory={<AddCategory />}
+          submitHandler={submitHandler}
+        />
       </FormContainer>
     </Container>
   );

@@ -12,6 +12,12 @@ export interface IListItemData {
   };
 }
 
+export interface ICategory {
+  name: string;
+  value: string;
+  icon: string;
+}
+
 interface IAddListItemAction {
   type: "addListItem";
   listItem: IListItemData;
@@ -32,18 +38,26 @@ interface IListItemDataAction {
   listItemData: IListItemData[];
 }
 
+interface IAddCategoryAction {
+  type: "addCategory";
+  category: ICategory;
+}
+
 export interface IState {
   listItemData: IListItemData[];
+  categories: ICategory[];
 }
 
 export type Action =
   | IAddListItemAction
   | IEditListItemAction
   | IDeleteListItemAction
-  | IListItemDataAction;
+  | IListItemDataAction
+  | IAddCategoryAction;
 
 export const reducer = (state: IState, action: Action) => {
   let newListItemData: IListItemData[];
+  let newCategories: ICategory[];
 
   switch (action.type) {
     case "addListItem":
@@ -81,11 +95,18 @@ export const reducer = (state: IState, action: Action) => {
       addLocalStorage("listItemData", action.listItemData);
       return { ...state, listItemData: action.listItemData };
 
+    case "addCategory":
+      newCategories = [...state.categories, action.category];
+
+      addLocalStorage("categories", newCategories);
+      return { ...state, categories: newCategories };
+
     default:
       throw new Error("There is no such action");
   }
 };
 
 export const initialState: IState = {
-  listItemData: getLocalStorage("listItemData"),
+  listItemData: getLocalStorage("listItemData") ?? [],
+  categories: getLocalStorage("categories") ?? [],
 };
