@@ -3,8 +3,7 @@ import { IListItemData } from "../reducer";
 import removeDuplicates from "./removeDuplicates";
 
 const summaryAllCategories = (arr: IListItemData[]) => {
-  const array = arr.map(({ category }) => category);
-  const categories = removeDuplicates(array);
+  const categories = removeDuplicates(arr.map(({ category }) => category));
 
   const summary = categories.map(({ name, value }) => ({
     id: uuid(),
