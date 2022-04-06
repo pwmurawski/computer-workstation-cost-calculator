@@ -5,10 +5,10 @@ import {
   Arrow,
   ArrowContainer,
 } from "./styles/AddCategoryStyles";
-import AddCategoryBtn from "../AddCategoryBtn/AddCategoryBtn";
+import AddCategoryBtn from "./AddCategoryBtn/AddCategoryBtn";
 import AddCategoryForm, {
   IFormDataAddCategory,
-} from "../AddCategoryForm/AddCategoryForm";
+} from "./AddCategoryForm/AddCategoryForm";
 import ReducerContext from "../../context/ReducerContext";
 
 export default function AddCategory() {

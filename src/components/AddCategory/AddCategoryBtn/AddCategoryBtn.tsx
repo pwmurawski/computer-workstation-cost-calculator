@@ -1,5 +1,5 @@
 import { Container, Icon } from "./styles/AddCategoryBtnStyles";
-import addIcon from "../../assets/addBtnIcon.png";
+import addIcon from "../../../assets/addBtnIcon.png";
 
 interface IAddCategoryBtnProps {
   onClick: () => void;
