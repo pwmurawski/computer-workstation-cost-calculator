@@ -4,11 +4,11 @@ import { ReactElement, useState } from "react";
 import {
   Form,
   Input,
-  Select,
   SubmitBtn,
   SelectContainer,
 } from "./styles/FormCreateListItemStyles";
-import { ICategory, IListItemData } from "../../reducer";
+import { IListItemData } from "../../reducer";
+import SelectCategory from "../SelectCategory/SelectCategory";
 
 const initialFormData = {
   id: uuid(),
@@ -26,14 +26,12 @@ interface IFormCreateListItemProps {
   defaultValues?: IListItemData;
   submitBtnText?: string;
   addCategory?: ReactElement;
-  categories?: ICategory[];
 }
 
 const defaultProps = {
   defaultValues: undefined,
   addCategory: null,
   submitBtnText: "Dodaj",
-  categories: null,
 };
 
 export default function FormCreateListItem({
@@ -41,7 +39,6 @@ export default function FormCreateListItem({
   defaultValues,
   submitBtnText,
   addCategory,
-  categories,
 }: IFormCreateListItemProps) {
   const [formData, setFormData] = useState(defaultValues ?? initialFormData);
 
@@ -67,8 +64,8 @@ export default function FormCreateListItem({
         placeholder="opis"
       />
       <SelectContainer>
-        <Select
-          value={formData.category.value}
+        <SelectCategory
+          isValue={formData.category.value}
           onChange={(e) =>
             setFormData({
               ...formData,
@@ -78,18 +75,7 @@ export default function FormCreateListItem({
               },
             })
           }
-        >
-          <option>Wybierz kategorie</option>
-          <option value="hardware">Podzespoły komputera</option>
-          <option value="peripherals">Urządzenia peryferyjne</option>
-          <option value="software">Oprogramowanie</option>
-          {categories?.map(({ name, value }) => (
-            <option key={uuid()} value={value}>
-              {name}
-            </option>
-          ))}
-          <option value="another">Inne</option>
-        </Select>
+        />
         {addCategory}
       </SelectContainer>
       <Input

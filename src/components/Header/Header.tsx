@@ -16,7 +16,6 @@ export default function Header() {
     <Container>
       <FormContainer>
         <FormCreateListItem
-          categories={reducerCon?.state.categories}
           addCategory={<AddCategory />}
           submitHandler={submitHandler}
         />

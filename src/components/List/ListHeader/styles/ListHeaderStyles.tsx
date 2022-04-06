@@ -28,3 +28,8 @@ export const ClearBtn = styled.button`
     background-color: whitesmoke;
   }
 `;
+
+export const SelectContainer = styled.div`
+  width: 150px;
+  height: 30px;
+`;
