@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { v4 as uuid } from "uuid";
 import {
   Container,
   ExitContainer,
@@ -20,7 +21,7 @@ export default function AddCategory() {
       type: "addCategory",
       category: {
         name: category.name,
-        value: category.name.toLocaleLowerCase(),
+        value: uuid(),
         icon: category.icon,
       },
     });

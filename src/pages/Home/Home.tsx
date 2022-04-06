@@ -7,10 +7,14 @@ import ListHeader from "../../components/List/ListHeader/ListHeader";
 import summaryAllCategories from "../../helpers/summaryAllCategories";
 import { IListItemData } from "../../reducer";
 import filterByCategory from "../../helpers/filterByCategory";
+import sort from "../../helpers/sort";
 
 export default function Home() {
   const reducerCon = useContext(ReducerContext);
-  const [category, setCategory] = useState("");
+  const [headerListSelected, setHeaderListSelected] = useState({
+    filter: "",
+    sort: "",
+  });
 
   const clearListHandler = () => {
     reducerCon?.dispatch({ type: "setListItemData", listItemData: [] });
@@ -30,13 +34,21 @@ export default function Home() {
         listHeader={
           <ListHeader
             numberItems={reducerCon?.state.listItemData.length ?? 0}
-            selectedCategoryHandler={(value) => setCategory(value)}
+            selectedCategoryHandler={(value) =>
+              setHeaderListSelected({ ...headerListSelected, filter: value })
+            }
+            selectedSortHandler={(value) =>
+              setHeaderListSelected({ ...headerListSelected, sort: value })
+            }
             clearListHandler={clearListHandler}
           />
         }
-        listItemData={filterByCategory(
-          reducerCon?.state.listItemData ?? [],
-          category
+        listItemData={sort(
+          filterByCategory(
+            reducerCon?.state.listItemData ?? [],
+            headerListSelected.filter
+          ),
+          headerListSelected.sort
         )}
         deleteItemHandler={deleteItemHandler}
         editItemHandler={editItemHandler}

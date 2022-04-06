@@ -8,8 +8,14 @@ export const ListHeaderContainer = styled.header`
 `;
 
 export const NumberItems = styled.header`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   font-size: 26px;
   font-weight: 600;
+  @media (max-width: 450px) {
+    font-size: 5vw;
+  }
 `;
 
 export const Value = styled.span`
@@ -27,9 +33,49 @@ export const ClearBtn = styled.button`
   :hover {
     background-color: whitesmoke;
   }
+  @media (max-width: 450px) {
+    font-size: 3vw;
+  }
 `;
 
 export const SelectContainer = styled.div`
-  width: 150px;
-  height: 30px;
+  max-width: 150px;
+  width: 100%;
+  height: 20px;
+  padding: 1px 5px;
+  font-size: 13px;
+  @media (max-width: 450px) {
+    font-size: 3vw;
+  }
+`;
+
+export const SortContainer = styled.div`
+  display: flex;
+  white-space: nowrap;
+  font-size: 14px;
+  height: 20px;
+  padding: 1px 5px;
+`;
+
+export const SelectSort = styled.select`
+  max-width: 70px;
+  width: 100%;
+  border-radius: 10px;
+  margin-left: 5px;
+  @media (max-width: 450px) {
+    font-size: 3vw;
+  }
+`;
+
+export const Right = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const Container = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
 `;

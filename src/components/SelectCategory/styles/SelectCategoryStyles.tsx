@@ -9,4 +9,5 @@ export const Select = styled.select`
   height: 100%;
   border-radius: 10px;
   border: 1px solid #b8b8b8;
+  font-size: inherit;
 `;
