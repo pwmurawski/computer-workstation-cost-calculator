@@ -2,14 +2,14 @@
 import { useState } from "react";
 import getIconCategory from "../../../helpers/getIconCategory";
 import {
-  ListItemContainer,
+  Container,
   Icon,
   Desc,
   Name,
   Price,
   Left,
   Right,
-  Container,
+  ContainerInfo,
   DeleteBtn,
 } from "./styles/ListItemStyles";
 import ListItemEditForm from "./ListItemEditForm/ListItemEditForm";
@@ -55,21 +55,17 @@ export default function ListItem({
       />
     );
   return (
-    <ListItemContainer
-      onDoubleClick={() => {
-        setshowListItemEditForm(true);
-      }}
-    >
+    <Container onDoubleClick={() => setshowListItemEditForm(true)}>
       <Left>
         <Icon
           width="50px"
           height="50px"
           src={getIconCategory(category.value) ?? iconCategory}
         />
-        <Container>
+        <ContainerInfo>
           <Name>{name}</Name>
           <Desc>{desc}</Desc>
-        </Container>
+        </ContainerInfo>
       </Left>
       <Right>
         <Price>{price} zł</Price>
@@ -77,6 +73,6 @@ export default function ListItem({
           <Icon width="100%" height="100%" src={deleteImg} />
         </DeleteBtn>
       </Right>
-    </ListItemContainer>
+    </Container>
   );
 }

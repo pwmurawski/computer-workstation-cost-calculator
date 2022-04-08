@@ -1,28 +1,11 @@
-/* eslint-disable import/prefer-default-export */
 import styled from "styled-components";
 
-export const ListItemContainer = styled.li`
+export const Container = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  min-width: 230px;
-  height: fit-content;
-  min-height: 50px;
-  padding: 12px 16px 12px 12px;
-  cursor: pointer;
-
-  border-left: 1px solid #b8b8b8;
-  border-right: 1px solid #b8b8b8;
-  border-bottom: 1px solid #b8b8b8;
-  :first-of-type {
-    border-top: 1px solid #b8b8b8;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-  }
-  :last-of-type {
-    border-bottom-left-radius: 10px;
-    border-bottom-right-radius: 10px;
-  }
+  width: 100%;
+  height: 100%;
 `;
 
 export const Icon = styled.img``;
@@ -59,7 +42,7 @@ export const Right = styled.div`
   align-items: center;
 `;
 
-export const Container = styled.div`
+export const ContainerInfo = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;

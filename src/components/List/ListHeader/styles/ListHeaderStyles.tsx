@@ -59,6 +59,7 @@ export const SortContainer = styled.div`
 
 export const SelectSort = styled.select`
   max-width: 70px;
+  min-width: 18px;
   width: 100%;
   border-radius: 10px;
   margin-left: 5px;

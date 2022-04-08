@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import { DropResult } from "react-beautiful-dnd";
 import { Wrapper, SummaryContainer } from "./styles/HomeStyles";
 import List from "../../components/List/List";
 import Summary from "../../components/Summary/Summary";
@@ -28,6 +29,17 @@ export default function Home() {
     reducerCon?.dispatch({ type: "deleteListItem", id });
   };
 
+  const onDragEnd = (param: DropResult) => {
+    const srcI = param.source.index;
+    const desI = param.destination?.index;
+    const newList = reducerCon?.state.listItemData;
+
+    if (newList) {
+      newList.splice(desI ?? 0, 0, newList.splice(srcI, 1)[0]);
+      reducerCon.dispatch({ type: "setListItemData", listItemData: newList });
+    }
+  };
+
   return (
     <Wrapper>
       <List
@@ -52,6 +64,7 @@ export default function Home() {
         )}
         deleteItemHandler={deleteItemHandler}
         editItemHandler={editItemHandler}
+        onDragEnd={onDragEnd}
       />
       <SummaryContainer>
         <Summary
