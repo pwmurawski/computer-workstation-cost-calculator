@@ -13,10 +13,11 @@ export const ListContainer = styled.ul`
 `;
 
 export const ListItemContainer = styled.li`
+  display: flex;
+  align-items: center;
   min-width: 230px;
   height: fit-content;
   min-height: 50px;
-  padding: 12px 16px 12px 12px;
   background-color: white;
   cursor: pointer;
 

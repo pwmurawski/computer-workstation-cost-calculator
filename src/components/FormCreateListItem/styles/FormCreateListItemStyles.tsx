@@ -41,7 +41,7 @@ export const SubmitBtn = styled.button`
   border: 0;
   border-radius: 20px;
   padding: 5px 10px;
-  margin-left: 5px;
+  margin: 0 5px;
   cursor: pointer;
   :hover {
     background-color: rgb(10, 104, 0);
