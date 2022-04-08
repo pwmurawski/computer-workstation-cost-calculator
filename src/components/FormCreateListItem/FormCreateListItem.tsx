@@ -3,12 +3,12 @@ import { v4 as uuid } from "uuid";
 import { ReactElement, useState } from "react";
 import {
   Form,
-  Input,
   SubmitBtn,
   SelectContainer,
 } from "./styles/FormCreateListItemStyles";
 import { IListItemData } from "../../reducer";
 import SelectCategory from "../SelectCategory/SelectCategory";
+import InputCustom from "../InputCustom/InputCustom";
 
 const initialFormData = {
   id: uuid(),
@@ -51,13 +51,13 @@ export default function FormCreateListItem({
 
   return (
     <Form onSubmit={submit}>
-      <Input
+      <InputCustom
         type="text"
         value={formData.name}
         onChange={(e) => setFormData({ ...formData, name: e.target.value })}
         placeholder="nazwa"
       />
-      <Input
+      <InputCustom
         type="text"
         value={formData.desc}
         onChange={(e) => setFormData({ ...formData, desc: e.target.value })}
@@ -78,7 +78,7 @@ export default function FormCreateListItem({
         />
         {addCategory}
       </SelectContainer>
-      <Input
+      <InputCustom
         type="number"
         value={formData.price}
         onChange={(e) => setFormData({ ...formData, price: e.target.value })}

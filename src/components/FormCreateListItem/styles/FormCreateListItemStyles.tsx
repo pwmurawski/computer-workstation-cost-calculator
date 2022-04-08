@@ -9,21 +9,6 @@ export const Form = styled.form`
   height: 100%;
 `;
 
-export const Input = styled.input`
-  box-sizing: border-box;
-  display: flex;
-  width: 100%;
-  min-width: 30px;
-  height: 100%;
-  margin: 0 5px;
-  border-radius: 10px;
-  border: 1px solid #b8b8b8;
-
-  @media (max-width: 700px) {
-    margin-bottom: 2px;
-  }
-`;
-
 export const SelectContainer = styled.div`
   position: relative;
   width: 100%;
