@@ -1,6 +1,5 @@
 /* eslint-disable no-unused-vars */
 import { useContext } from "react";
-import { v4 as uuid } from "uuid";
 import ReducerContext from "../../context/ReducerContext";
 import { Select } from "./styles/SelectCategoryStyles";
 
@@ -24,7 +23,7 @@ export default function SelectCategory({ isValue, onChange }: ISelectProps) {
       <option value="peripherals">Urządzenia peryferyjne</option>
       <option value="software">Oprogramowanie</option>
       {reducerCon?.state.categories?.map(({ name, value }) => (
-        <option key={uuid()} value={value}>
+        <option key={value} value={value}>
           {name}
         </option>
       ))}
