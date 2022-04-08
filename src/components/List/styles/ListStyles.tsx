@@ -17,6 +17,7 @@ export const ListItemContainer = styled.li`
   height: fit-content;
   min-height: 50px;
   padding: 12px 16px 12px 12px;
+  background-color: white;
   cursor: pointer;
 
   border-left: 1px solid #b8b8b8;
