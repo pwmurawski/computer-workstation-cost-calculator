@@ -1,5 +1,6 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { DropResult } from "react-beautiful-dnd";
+import { useReactToPrint } from "react-to-print";
 import { Wrapper, SummaryContainer } from "./styles/HomeStyles";
 import List from "../../components/List/List";
 import Summary from "../../components/Summary/Summary";
@@ -9,12 +10,17 @@ import summaryAllCategories from "../../helpers/summaryAllCategories";
 import { IListItemData } from "../../reducer";
 import filterByCategory from "../../helpers/filterByCategory";
 import sort from "../../helpers/sort";
+import PrintBtn from "../../components/PrintBtn/PrintBtn";
 
 export default function Home() {
+  const listRef = useRef<HTMLUListElement>(null);
   const reducerCon = useContext(ReducerContext);
   const [headerListSelected, setHeaderListSelected] = useState({
     filter: "",
     sort: "",
+  });
+  const handlePrint = useReactToPrint({
+    content: () => listRef.current,
   });
 
   const clearListHandler = () => {
@@ -43,6 +49,7 @@ export default function Home() {
   return (
     <Wrapper>
       <List
+        reff={listRef}
         listHeader={
           <ListHeader
             numberItems={reducerCon?.state.listItemData.length ?? 0}
@@ -74,6 +81,7 @@ export default function Home() {
           )}
         />
       </SummaryContainer>
+      <PrintBtn onClick={handlePrint} />
     </Wrapper>
   );
 }

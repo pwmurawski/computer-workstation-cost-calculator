@@ -17,10 +17,12 @@ interface IListProps {
   deleteItemHandler: (id: string) => void;
   editItemHandler: (listItemNewData: IListItemData) => void;
   onDragEnd: (param: DropResult) => void;
+  reff?: React.RefObject<HTMLUListElement> | null;
 }
 
 const defaultProps = {
   listHeader: undefined,
+  reff: undefined,
 };
 
 export default function List({
@@ -29,10 +31,11 @@ export default function List({
   deleteItemHandler,
   editItemHandler,
   onDragEnd,
+  reff,
 }: IListProps) {
   return (
     <DragDropContext onDragEnd={onDragEnd}>
-      <ListContainer>
+      <ListContainer ref={reff}>
         {listHeader}
         <Droppable droppableId="droppable-1">
           {(provided) => (
