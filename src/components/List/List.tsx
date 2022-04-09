@@ -42,11 +42,17 @@ export default function List({
             <div ref={provided.innerRef} {...provided.droppableProps}>
               {listItemData.map(({ id, name, desc, price, category }, idx) => (
                 <Draggable key={id} draggableId={`draggable-${id}`} index={idx}>
-                  {(prov) => (
+                  {(prov, snapshot) => (
                     <ListItemContainer
                       ref={prov.innerRef}
                       {...prov.draggableProps}
                       {...prov.dragHandleProps}
+                      style={{
+                        ...prov.draggableProps.style,
+                        boxShadow: snapshot.isDragging
+                          ? "0 0 5px black"
+                          : "none",
+                      }}
                     >
                       <ListItem
                         id={id}
