@@ -12,6 +12,7 @@ export const InputCustomContainer = styled.div`
 
   @media (max-width: 700px) {
     margin-bottom: 2px;
+    height: 30px;
   }
 `;
 

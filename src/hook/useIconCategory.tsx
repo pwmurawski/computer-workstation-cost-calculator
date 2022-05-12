@@ -2,12 +2,12 @@
 import { useContext } from "react";
 import ReducerContext from "../context/ReducerContext";
 
-const useIconCategory = (category: string) => {
+const useIconCategory = (categoryValue: string) => {
   const reducerCon = useContext(ReducerContext);
 
   let returnIcon: string | undefined;
   reducerCon?.state.categories.forEach(({ value, icon }) => {
-    value === category ? (returnIcon = icon) : null;
+    value === categoryValue ? (returnIcon = icon) : null;
   });
 
   return returnIcon;

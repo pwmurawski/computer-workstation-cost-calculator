@@ -1,42 +1,41 @@
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable no-unused-vars */
-import { ReactElement } from "react";
 import {
   DragDropContext,
   Droppable,
   Draggable,
   DropResult,
 } from "react-beautiful-dnd";
+import { useContext } from "react";
 import { ListContainer, ListItemContainer } from "./styles/ListStyles";
+import ListHeader from "../../components/List/ListHeader/ListHeader";
 import ListItem from "./ListItem/ListItem";
 import { IListItemData } from "../../reducer";
+import ReducerContext from "../../context/ReducerContext";
 
 interface IListProps {
-  listHeader?: ReactElement;
   listItemData: IListItemData[];
-  deleteItemHandler: (id: string) => void;
-  editItemHandler: (listItemNewData: IListItemData) => void;
-  onDragEnd: (param: DropResult) => void;
-  reff?: React.RefObject<HTMLUListElement> | null;
+  reff: React.RefObject<HTMLUListElement>;
 }
 
-const defaultProps = {
-  listHeader: undefined,
-  reff: undefined,
-};
+export default function List({ listItemData, reff }: IListProps) {
+  const reducerCon = useContext(ReducerContext);
 
-export default function List({
-  listHeader,
-  listItemData,
-  deleteItemHandler,
-  editItemHandler,
-  onDragEnd,
-  reff,
-}: IListProps) {
+  const onDragEnd = (param: DropResult) => {
+    const srcI = param.source.index;
+    const desI = param.destination?.index;
+    const newList = listItemData;
+
+    if (newList) {
+      newList.splice(desI ?? 0, 0, newList.splice(srcI, 1)[0]);
+      reducerCon?.dispatch({ type: "setListItemData", listItemData: newList });
+    }
+  };
+
   return (
     <DragDropContext onDragEnd={onDragEnd}>
       <ListContainer ref={reff}>
-        {listHeader}
+        <ListHeader />
         <Droppable droppableId="droppable-1">
           {(provided) => (
             <div ref={provided.innerRef} {...provided.droppableProps}>
@@ -60,8 +59,6 @@ export default function List({
                         desc={desc}
                         price={price}
                         category={category}
-                        deleteItemHandler={deleteItemHandler}
-                        editItemHandler={editItemHandler}
                       />
                     </ListItemContainer>
                   )}
@@ -75,5 +72,3 @@ export default function List({
     </DragDropContext>
   );
 }
-
-List.defaultProps = defaultProps;

@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import {
   ListHeaderContainer,
   NumberItems,
@@ -12,28 +12,23 @@ import {
   Container,
 } from "./styles/ListHeaderStyles";
 import SelectCategory from "../../SelectCategory/SelectCategory";
+import ReducerContext from "../../../context/ReducerContext";
 
-interface IListHeaderProps {
-  numberItems: number;
-  clearListHandler: () => void;
-  selectedCategoryHandler: (categoryValue: string) => void;
-  selectedSortHandler: (sortValue: string) => void;
-}
-
-export default function ListHeader({
-  numberItems,
-  clearListHandler,
-  selectedCategoryHandler,
-  selectedSortHandler,
-}: IListHeaderProps) {
+export default function ListHeader() {
   const [selectValue, setSelectValue] = useState({ filter: "", sort: "" });
+  const reducerCon = useContext(ReducerContext);
+  const numberItems = reducerCon?.state.listItemData.length ?? 0;
+
+  const clearList = () => {
+    reducerCon?.dispatch({ type: "setListItemData", listItemData: [] });
+  };
 
   useEffect(() => {
-    selectedCategoryHandler(selectValue.filter);
+    reducerCon?.dispatch({ type: "setFilter", value: selectValue.filter });
   }, [selectValue.filter]);
 
   useEffect(() => {
-    selectedSortHandler(selectValue.sort);
+    reducerCon?.dispatch({ type: "setSort", value: selectValue.sort });
   }, [selectValue.sort]);
 
   return (
@@ -67,13 +62,7 @@ export default function ListHeader({
             />
           </SelectContainer>
         </Container>
-        <ClearBtn
-          onClick={() => {
-            clearListHandler();
-          }}
-        >
-          Wyczyść
-        </ClearBtn>
+        <ClearBtn onClick={clearList}>Wyczyść</ClearBtn>
       </Right>
     </ListHeaderContainer>
   );

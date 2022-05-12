@@ -43,9 +43,21 @@ interface IAddCategoryAction {
   category: ICategory;
 }
 
+interface ISetFilterAction {
+  type: "setFilter";
+  value: string;
+}
+
+interface ISetSortAction {
+  type: "setSort";
+  value: string;
+}
+
 export interface IState {
   listItemData: IListItemData[];
   categories: ICategory[];
+  filter: string;
+  sort: string;
 }
 
 export type Action =
@@ -53,7 +65,9 @@ export type Action =
   | IEditListItemAction
   | IDeleteListItemAction
   | IListItemDataAction
-  | IAddCategoryAction;
+  | IAddCategoryAction
+  | ISetFilterAction
+  | ISetSortAction;
 
 export const reducer = (state: IState, action: Action) => {
   let newListItemData: IListItemData[];
@@ -101,6 +115,12 @@ export const reducer = (state: IState, action: Action) => {
       addLocalStorage("categories", newCategories);
       return { ...state, categories: newCategories };
 
+    case "setFilter":
+      return { ...state, filter: action.value };
+
+    case "setSort":
+      return { ...state, sort: action.value };
+
     default:
       throw new Error("There is no such action");
   }
@@ -109,4 +129,6 @@ export const reducer = (state: IState, action: Action) => {
 export const initialState: IState = {
   listItemData: getLocalStorage("listItemData") ?? [],
   categories: getLocalStorage("categories") ?? [],
+  filter: "",
+  sort: "",
 };

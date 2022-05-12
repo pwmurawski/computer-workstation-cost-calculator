@@ -17,6 +17,7 @@ export const SelectContainer = styled.div`
   font-size: 13px;
   @media (max-width: 700px) {
     margin-bottom: 2px;
+    height: 30px;
   }
 `;
 

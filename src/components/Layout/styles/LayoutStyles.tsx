@@ -7,25 +7,9 @@ export const Wrapper = styled.section`
   height: fit-content;
 `;
 
-export const Header = styled.header`
-  position: fixed;
-  width: 100%;
-  height: 100px;
-  z-index: 1;
-
-  @media (max-width: 700px) {
-    height: 160px;
-  }
-`;
-
 export const Main = styled.main`
-  margin-top: 100px;
-  min-height: 87vh;
+  min-height: 95vh;
   height: fit-content;
-
-  @media (max-width: 700px) {
-    margin-top: 160px;
-  }
 `;
 
 export const Footer = styled.footer`

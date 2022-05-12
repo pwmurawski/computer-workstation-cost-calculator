@@ -1,87 +1,44 @@
-import { useContext, useRef, useState } from "react";
-import { DropResult } from "react-beautiful-dnd";
+import { useReducer, useMemo, useRef } from "react";
 import { useReactToPrint } from "react-to-print";
+import { reducer, initialState } from "../../reducer";
+import ReducerContext from "../../context/ReducerContext";
 import { Wrapper, SummaryContainer } from "./styles/HomeStyles";
 import List from "../../components/List/List";
-import Summary from "../../components/Summary/Summary";
-import ReducerContext from "../../context/ReducerContext";
-import ListHeader from "../../components/List/ListHeader/ListHeader";
-import summaryAllCategories from "../../helpers/summaryAllCategories";
-import { IListItemData } from "../../reducer";
+import SummaryCategories from "../../components/SummaryCategories/SummaryCategories";
 import filterByCategory from "../../helpers/filterByCategory";
 import sort from "../../helpers/sort";
 import PrintBtn from "../../components/PrintBtn/PrintBtn";
+import AddItem from "../../components/AddItem/AddItem";
 
 export default function Home() {
+  const [state, dispatch] = useReducer(reducer, initialState);
   const listRef = useRef<HTMLUListElement>(null);
-  const reducerCon = useContext(ReducerContext);
-  const [headerListSelected, setHeaderListSelected] = useState({
-    filter: "",
-    sort: "",
-  });
+  const reducerValue = useMemo(() => ({ state, dispatch }), [state, dispatch]);
+
+  const listItemData = state.listItemData ?? [];
+  const filterValue = state.filter ?? "";
+  const sortValue = state.sort ?? "";
+
   const handlePrint = useReactToPrint({
     content: () => listRef.current,
   });
 
-  const clearListHandler = () => {
-    reducerCon?.dispatch({ type: "setListItemData", listItemData: [] });
-  };
-
-  const editItemHandler = (listItemNewData: IListItemData) => {
-    reducerCon?.dispatch({ type: "editListItem", listItemNewData });
-  };
-
-  const deleteItemHandler = (id: string) => {
-    reducerCon?.dispatch({ type: "deleteListItem", id });
-  };
-
-  const onDragEnd = (param: DropResult) => {
-    const srcI = param.source.index;
-    const desI = param.destination?.index;
-    const newList = reducerCon?.state.listItemData;
-
-    if (newList) {
-      newList.splice(desI ?? 0, 0, newList.splice(srcI, 1)[0]);
-      reducerCon.dispatch({ type: "setListItemData", listItemData: newList });
-    }
-  };
-
   return (
-    <Wrapper>
-      <List
-        reff={listRef}
-        listHeader={
-          <ListHeader
-            numberItems={reducerCon?.state.listItemData.length ?? 0}
-            selectedCategoryHandler={(value) =>
-              setHeaderListSelected({ ...headerListSelected, filter: value })
-            }
-            selectedSortHandler={(value) =>
-              setHeaderListSelected({ ...headerListSelected, sort: value })
-            }
-            clearListHandler={clearListHandler}
-          />
-        }
-        listItemData={sort(
-          filterByCategory(
-            reducerCon?.state.listItemData ?? [],
-            headerListSelected.filter
-          ),
-          headerListSelected.sort
-        )}
-        deleteItemHandler={deleteItemHandler}
-        editItemHandler={editItemHandler}
-        onDragEnd={onDragEnd}
-      />
-      <SummaryContainer>
-        <Summary
-          listItemData={reducerCon?.state.listItemData ?? []}
-          categories={summaryAllCategories(
-            reducerCon?.state.listItemData ?? []
+    <ReducerContext.Provider value={reducerValue}>
+      <AddItem />
+      <Wrapper>
+        <List
+          reff={listRef}
+          listItemData={sort(
+            filterByCategory(listItemData, filterValue),
+            sortValue
           )}
         />
-      </SummaryContainer>
-      <PrintBtn onClick={handlePrint} />
-    </Wrapper>
+        <SummaryContainer>
+          <SummaryCategories />
+        </SummaryContainer>
+        <PrintBtn onClick={handlePrint} />
+      </Wrapper>
+    </ReducerContext.Provider>
   );
 }

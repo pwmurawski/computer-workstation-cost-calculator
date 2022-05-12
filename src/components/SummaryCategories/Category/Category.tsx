@@ -1,23 +1,22 @@
 import { Container, Info, Text, Title, Value } from "./styles/CategoryStyles";
-import getTotalAmount from "../../../helpers/getTotalAmount";
-import { IListItemData } from "../../../reducer";
 
 interface ICategoryProps {
   name: string;
-  items: IListItemData[];
+  value: number;
+  length: number;
 }
 
-export default function Category({ name, items }: ICategoryProps) {
+export default function Category({ name, value, length }: ICategoryProps) {
   return (
     <Container>
       <Title>{name}</Title>
       <Info>
         <Text>Liczba przedmiotów</Text>
-        <Value>{items.length}</Value>
+        <Value>{length}</Value>
       </Info>
       <Info>
         <Text>Łączna kwota</Text>
-        <Value>{getTotalAmount(items)} zł</Value>
+        <Value>{value} zł</Value>
       </Info>
     </Container>
   );
