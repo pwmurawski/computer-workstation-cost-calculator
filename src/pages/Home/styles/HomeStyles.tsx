@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import styled from "styled-components";
 
-export const Wrapper = styled.div`
+export const Container = styled.div`
   box-sizing: border-box;
   display: flex;
   justify-content: center;

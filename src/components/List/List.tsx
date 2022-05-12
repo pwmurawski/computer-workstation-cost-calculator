@@ -1,5 +1,4 @@
 /* eslint-disable react/jsx-props-no-spreading */
-/* eslint-disable no-unused-vars */
 import {
   DragDropContext,
   Droppable,
@@ -10,16 +9,20 @@ import { useContext } from "react";
 import { ListContainer, ListItemContainer } from "./styles/ListStyles";
 import ListHeader from "../../components/List/ListHeader/ListHeader";
 import ListItem from "./ListItem/ListItem";
-import { IListItemData } from "../../reducer";
 import ReducerContext from "../../context/ReducerContext";
+import filter from "../../helpers/filter";
+import sort from "../../helpers/sort";
 
 interface IListProps {
-  listItemData: IListItemData[];
   reff: React.RefObject<HTMLUListElement>;
 }
 
-export default function List({ listItemData, reff }: IListProps) {
+export default function List({ reff }: IListProps) {
   const reducerCon = useContext(ReducerContext);
+  const list = reducerCon?.state.listItemData ?? [];
+  const sortValue = reducerCon?.state.sort ?? "";
+  const filterValue = reducerCon?.state.filter ?? "";
+  const listItemData = sort(filter(list, filterValue), sortValue);
 
   const onDragEnd = (param: DropResult) => {
     const srcI = param.source.index;
